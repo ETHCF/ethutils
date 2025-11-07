@@ -13,16 +13,18 @@ func init() {
 	random = rand.New(rand.NewSource(time.Now().Unix()))
 }
 
+func GenRandHexString(n int) string {
+	bytes := make([]byte, n)
+	random.Read(bytes)
+	return hex.EncodeToString(bytes)
+}
+
 // GenRandEVMAddr generates a random Ethereum address using non-cryptographic randomness
 func GenRandEVMAddr() string {
-	addrBytes := make([]byte, 20)
-	random.Read(addrBytes)
-	return "0x" + hex.EncodeToString(addrBytes)
+	return "0x" + GenRandHexString(20)
 }
 
 // GenRandEVMHash generates a random Ethereum hash using non-cryptographic randomness
 func GenRandEVMHash() string {
-	addrBytes := make([]byte, 32)
-	random.Read(addrBytes)
-	return "0x" + hex.EncodeToString(addrBytes)
+	return "0x" + GenRandHexString(32)
 }
